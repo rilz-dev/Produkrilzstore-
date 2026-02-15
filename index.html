@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RILZ STORE - FIXED EDITION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Perbaikan link Font Awesome agar ikon muncul -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+        @import url('https://fonts.googleapis.com');
+        body { background: radial-gradient(circle at center, #1a1a2e 0%, #080810 100%); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; padding-top: 100px; }
+        .neon-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; transition: all 0.4s ease; overflow: hidden; }
+        .neon-card:hover { border-color: #00f2fe; transform: translateY(-10px); box-shadow: 0 0 30px rgba(0, 242, 254, 0.2); }
+        .btn-premium { background: linear-gradient(90deg, #00f2fe, #4facfe); color: #000; font-weight: 800; animation: pulse-wiggle 4s infinite; box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+        @keyframes pulse-wiggle { 0%, 90% { transform: scale(1); } 92% { transform: scale(1.1) rotate(3deg); } 94% { transform: scale(1.1) rotate(-3deg); } 100% { transform: scale(1); } }
+        .neon-text { text-shadow: 0 0 15px rgba(0, 242, 254, 0.8); font-family: 'Orbitron', sans-serif; }
+        #music-control { position: fixed; right: 15px; top: 15%; z-index: 100; cursor: pointer; background: rgba(0, 242, 254, 0.15); padding: 12px; border-radius: 50%; border: 1px solid #00f2fe; display: flex; flex-direction: column; align-items: center; box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
+        .payment-box { background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 15px; border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="p-6">
+    <!-- Perbaikan: Sumber lagu dipindahkan ke tag source -->
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/o918jh.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-control" onclick="toggleMusic()">
+        <i id="music-icon" class="fas fa-music text-cyan-400 text-xl"></i>
+        <span class="text-[8px] font-bold text-cyan-400 mt-1" id="music-status">OFF</span>
+    </div>
+
+    <div class="max-w-5xl mx-auto">
+        <header class="text-center mb-24">
+            <h1 class="text-5xl md:text-6xl font-bold neon-text mb-4 italic">RILZ STORE</h1>
+            <p class="text-cyan-400 tracking-[15px] text-[10px] uppercase opacity-60">High Quality Digital Services</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Produk tetap sama seperti aslinya -->
+            <div class="neon-card p-8 flex flex-col justify-between h-72"><div><h3 class="text-2xl font-bold text-cyan-400 tracking-wider">PANEL PRODUCTLY</h3><p class="text-gray-400 text-sm mt-2 italic">Akses server premium super kencang.</p></div><div class="flex justify-between items-center border-t border-white/10 pt-5"><span class="text-2xl font-bold text-white">7K</span><button onclick="checkout('PANEL PRODUCTLY')" class="btn-premium px-8 py-3 rounded-2xl text-[10px]">BELI</button></div></div>
+            <div class="neon-card p-8 flex flex-col justify-between h-72"><div><h3 class="text-2xl font-bold text-cyan-400 tracking-wider">MURBUG</h3><p class="text-gray-400 text-sm mt-2 italic">Solusi hemat perbaikan bug.</p></div><div class="flex justify-between items-center border-t border-white/10 pt-5"><span class="text-2xl font-bold text-white">15K</span><button onclick="checkout('MURBUG')" class="btn-premium px-8 py-3 rounded-2xl text-[10px]">BELI</button></div></div>
+            <div class="neon-card p-8 flex flex-col justify-between h-72"><div><h3 class="text-2xl font-bold text-cyan-400 tracking-wider">JASA BUG</h3><p class="text-gray-400 text-sm mt-2 italic">Optimasi sistem profesional.</p></div><div class="flex justify-between items-center border-t border-white/10 pt-5"><span class="text-2xl font-bold text-white">3K</span><button onclick="checkout('JASA BUG')" class="btn-premium px-8 py-3 rounded-2xl text-[10px]">BELI</button></div></div>
+            <div class="neon-card p-8 flex flex-col justify-between h-72"><div><h3 class="text-2xl font-bold text-cyan-400 tracking-wider">JASA PUSH CH</h3><p class="text-gray-400 text-sm mt-2 italic">Naikkan member secara instan.</p></div><div class="flex justify-between items-center border-t border-white/10 pt-5"><span class="text-2xl font-bold text-white">5K</span><button onclick="checkout('JASA PUSH CH')" class="btn-premium px-8 py-3 rounded-2xl text-[10px]">BELI</button></div></div>
+            <div class="neon-card p-8 flex flex-col justify-between h-72"><div><h3 class="text-2xl font-bold text-cyan-400 tracking-wider">NOKOS</h3><p class="text-gray-400 text-sm mt-2 italic">Nomor fresh verifikasi.</p></div><div class="flex justify-between items-center border-t border-white/10 pt-5"><span class="text-2xl font-bold text-white">5K</span><button onclick="checkout('NOKOS')" class="btn-premium px-8 py-3 rounded-2xl text-[10px]">BELI</button></div></div>
+        </div>
+    </div>
+
+    <!-- Modal Pembayaran tetap sama -->
+    <div id="payment-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center p-6 z-50">
+        <div class="neon-card p-10 rounded-[50px] w-full max-w-sm text-center border-cyan-500/30">
+            <h2 id="pay-title" class="text-3xl font-bold mb-1 neon-text tracking-tighter uppercase"></h2>
+            <p id="trx-id" class="text-[10px] text-gray-500 mb-8 font-mono tracking-widest"></p>
+            <div class="space-y-4 mb-8 text-left">
+                <div class="payment-box flex justify-between items-center"><div><p class="text-[8px] text-cyan-400 font-bold uppercase">DANA</p><p id="num-dana" class="font-bold text-lg">083131708820</p></div><button onclick="copyNum('num-dana')" class="bg-cyan-500/10 p-3 rounded-2xl"><i class="fas fa-copy text-cyan-400"></i></button></div>
+                <div class="payment-box flex justify-between items-center"><div><p class="text-[8px] text-cyan-400 font-bold uppercase">GOPAY</p><p id="num-gopay" class="font-bold text-lg">085184899267</p></div><button onclick="copyNum('num-gopay')" class="bg-cyan-500/10 p-3 rounded-2xl"><i class="fas fa-copy text-cyan-400"></i></button></div>
+            </div>
+            <button onclick="reqQRIS()" class="w-full bg-white/5 text-white font-bold py-4 rounded-3xl mb-4 text-[10px] flex items-center justify-center gap-3 border border-white/10 hover:bg-white hover:text-black transition duration-300"><i class="fab fa-whatsapp text-lg"></i> CHAT ADMIN UNTUK QRIS</button>
+            <button id="verify-btn" onclick="startBot()" class="w-full bg-cyan-500 text-black font-bold py-4 rounded-3xl shadow-2xl shadow-cyan-500/30 text-xs tracking-[2px] active:scale-95 transition">SAYA SUDAH TRANSFER</button>
+            <button onclick="closeModal()" class="mt-8 text-gray-500 text-[10px] uppercase hover:text-white transition">Batal</button>
+        </div>
+    </div>
+
+    <script>
+        // Perbaikan: Cara memanggil elemen audio yang benar
+        const audio = document.getElementById('bgMusic');
+        let isPlaying = false;
+        const adminWA = "";
+
+        function toggleMusic() {
+            const icon = document.getElementById('music-icon');
+            if (isPlaying) { 
+                audio.pause(); 
+                icon.className = "fas fa-music text-cyan-400 text-xl"; 
+                document.getElementById('music-status').innerText = "OFF"; 
+            } else { 
+                audio.play(); 
+                icon.className = "fas fa-compact-disc fa-spin text-cyan-400 text-xl"; 
+                document.getElementById('music-status').innerText = "ON"; 
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function checkout(name) {
+            if(!isPlaying) toggleMusic();
+            document.getElementById('pay-title').innerText = name;
+            document.getElementById('trx-id').innerText = "INV-" + Math.floor(Date.now() / 1000);
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function copyNum(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Nomor Berhasil Disalin: " + text);
+        }
+
+        function closeModal() { document.getElementById('payment-modal').classList.add('hidden'); }
+
+        function reqQRIS() {
+            const produk = document.getElementById('pay-title').innerText;
+            const pesan = "Halo Admin, saya mau bayar orderan " + produk + ". Pake qris Minta kode QRIS nya dong!";
+            window.location.href = "https://wa.me/6283131708820" + adminWA + "?text=" + encodeURIComponent(pesan);
+        }
+
+        function startBot() {
+            const btn = document.getElementById('verify-btn');
+            const produk = document.getElementById('pay-title').innerText;
+            const trxID = document.getElementById('trx-id').innerText;
+            btn.innerHTML = '<i class="fas fa-robot fa-spin mr-2"></i> BOT CHECKING...';
+            btn.disabled = true;
+            setTimeout(() => {
+                const pesan = "Halo Admin, saya sudah transfer via DANA/GOPAY untuk:\nProduk: " + produk + "\nID: " + trxID + "\nMohon segera diproses!";
+                window.location.href = "https://wa.me/6283131708820" + adminWA + "?text=" + encodeURIComponent(pesan);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
